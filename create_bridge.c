@@ -30,7 +30,6 @@ int main()
 	struct rtnl_link *link;
 	struct nl_cache *link_cache;
 	struct nl_sock *sk;
-	//struct rtnl_link *ltap;
 	int err;
 
 	sk = nl_socket_alloc();
@@ -50,34 +49,15 @@ int main()
 	}
 
 	nl_cache_refill(sk, link_cache);
-
 	link = rtnl_link_get_by_name(link_cache, TEST_BRIDGE_NAME);
-	//ltap = rtnl_link_get_by_name(link_cache, TEST_INTERFACE_NAME);
-	/*if (!ltap) {
-		fprintf(stderr, "You should create a tap interface before lunch this test (# tunctl -t %s)\n", TEST_INTERFACE_NAME);
-		return -1;
-	}*/
-
-	/*if ((err = rtnl_link_enslave(sk, link, ltap)) < 0) {
-		nl_perror(err, "Unable to enslave interface to his bridge\n");
-		return err;
-	}*/
+	
 
 	if(rtnl_link_is_bridge(link) == 0) {
 		fprintf(stderr, "Link is not a bridge\n");
 		return -2;
 	}
 
-	//rtnl_link_put(ltap);
 	nl_cache_refill(sk, link_cache);
-	//ltap = rtnl_link_get_by_name(link_cache, TEST_INTERFACE_NAME);
-
-	/*if(rtnl_link_get_master(ltap) <= 0) {
-		fprintf(stderr, "Interface is not attached to a bridge\n");
-		return -3;
-	}*/
-
-	//rtnl_link_put(ltap);
 	rtnl_link_put(link);
 
 	nl_cache_free(link_cache);
