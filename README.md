@@ -6,7 +6,7 @@ This is a simple example of the code that performs same with the `ip link add <b
 
 This code is about the create a network bridge and enable the vlan filtering feature. You can disable it with `iproute2` command or comment the `line 27` in `bridge_setvlanfilt.c`. In order to enable vlan filtering `3.7 release of libnl library` is not supported for my environment. So I remove all netlink related packages in my system and changed the symbol versioning file.
 
-```bash
+```diff
 diff --git a/configure.ac b/configure.ac
 index b6bdcec..bbd3282 100644
 --- a/configure.ac
